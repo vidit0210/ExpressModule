@@ -1,13 +1,27 @@
 const Joi = require('joi');
 const Express = require('express');
 const app = Express();
+const morgan = require('morgan');
+const Logger = require('./logger.js');
 app.use(Express.json());
-
+app.use(morgan('tiny'));
 const data = [
     {id:1,genre:'Action',code:'A'},
     {id:2,genre:'Drama',code:'D'}
 ];
+process.env.NODE
 
+//MiddleWare  Funtions Used to pass on the Data from use -> middleware -> route Handler
+
+
+// app.use(function (req,res,next) {
+//     console.log("Authenticating");
+//     next();
+//
+// })
+
+app.use(Express.urlencoded({extended: true}));
+app.use(Express.static('public'));
 function verify(request){
     const schema = {genre:Joi.string().required(),
                     code:Joi.string().required()};
